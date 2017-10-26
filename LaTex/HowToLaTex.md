@@ -24,13 +24,13 @@ Conversion .ps => .pdf <br>
 
 
 ## Syntaxe globale de LaTex
-* une commande a commence par un "\"
+* Une commande a commence par un "\"
 * Les commande possede un type a precisé entre "{}"
 * Elle possede aussi des option place entre "[]"
-* Le commentaire sont reperé par %
+* Les commentaire sont reperé par %
 
 ### Exemple
-```latex
+```LaTex
 	%Je suis un commentaire
 	\commande{type}[arg1, arg2]
 ```
@@ -132,7 +132,7 @@ Un document doit commencer par un documentclass
 
 L'ajout de "\*" a la fin de la commande permet d'evité la numerotation
 
-## Annexe
+## Annexes
 ### Syntaxe :
 ```
 \appendix
@@ -254,3 +254,51 @@ Il est possible que ces 8 coleurs ne soit satisfaisant, c'est pourquoi il existe
 ` \definecolor{nom de la couleur}{type}{niveau de couleur} `
 ### Exemple
 `\definecolor{blouge}{rgb}{0.5, 0, 0.5}`
+
+## Image
+LaTex gere aussi l'insertion d'image grâce au package graphix
+``` LaTex
+\usepackage{graphix}
+```
+Pour inserer une image a l'endroit exacte ou elle est placé dans le code
+### Syntaxe
+``` LaTex
+\includegraphics{img}
+```
+
+Pour ajouté une legende a cette image il suffit de rajouté juste aprés
+### Syntaxe
+``` LaTex
+\captionof{figure}{legende}
+```
+
+## Image Flotante
+Les images flotante gére leur placement automatiquement<br>
+Les images floatantes se declare dans l'evironement figure et prenne comme parametre la position de l'image
+* h (here) : suit texte
+* t : en haut de la page
+* b : en bas de la page
+* p : Sur une page special
+
+Il est aussi possible d'ajouté une legende a l'image
+``` LaTex
+	\caption{legende}
+```
+
+### Syntaxe :
+``` LaTex
+			\begin{figure}[h]
+				\includegraphics{img/img.png}
+				\caption{Je suis une legende B) }
+			\end{figure}
+```
+
+La taille des image sont reglable en fonction de la taille du texte et du la largeur de la page
+``` LaTex
+	\usepackage[Export]{adjustbox}
+	\adjustboxset{max size={\textwidth}{\textheight}}
+	\setkeys{Gin}{width=\textwidth}
+```
+
+Les images peuvent prendre en parametre la largeur ou/et la hauteur de celle-ci avec `width` et `height`.
+La largeur du document est récuperable avec `\textwidth` ou `\linewidth`
