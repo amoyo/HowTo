@@ -123,11 +123,11 @@ Un message chiffré avec la clé privé peut etre uniquement dechiffré avec la 
 ** (Authentifiction + Confidentialité) **
 
 ##### Avantage
-` Gestion et distribution des clés beaucoup plus aissés qu'avec le chiffrement symetrique`<br>
-` Permet l'authentification et la non repondation `
+Gestion et distribution des clés beaucoup plus aissés qu'avec le chiffrement symetrique<br>
+Permet l'authentification et la non repondation
 
 ##### Desavantage
-` Le chiffrement est lent. Demande de nombreux calcul`
+Le chiffrement est lent. Demande de nombreux calcul
 
 ##### Algorithme
 * RSA
