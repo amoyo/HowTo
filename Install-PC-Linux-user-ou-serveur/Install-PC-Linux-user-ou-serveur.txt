@@ -1,0 +1,134 @@
+﻿nano /etc/default/grub, personnalisation timeout / quiet / ordre ou autre, puis update-grub
+dpkg-reconfigure tzdata (heure)
+
+apt update && apt upgrade
+apt install dbus
+reboot
+apt install net-tools lxde-core lxpolkit lxterminal lxrandr lxappearance lightdm openssh-server baobab brasero gnome-commander gnome-screenshot gnome-system-monitor gnome-disk-utility gparted iperf bwm-ng lm-sensors pavucontrol eog file-roller galculator evince gedit firefox-esr filezilla vlc synaptic sysstat ntpdate build-essential mesa-utils wicd blueman
+
+Installation manuelle :
+veracrypt
+
+adduser username sudo
+
+
+Screensaver stop (il est horrible)
+Raccourcis corrects sur la barre des taches (batteries, minimize all windows etc)
+show hidden, vue détails dans PCManFM ou Nautilus
+
+Pour avoir les drivers d'une carte réseau / WiFi
+lsusb ou lspci -nn
+Chercher sur google "Debian apt-get nom/ID de la carte" et on tombe souvent sur "apt-get install firmware-realtek" ou un truc du genre (un peu différent pour broadcom)
+
+-----------------------------------------------------------
+Pour jouer avec Steam sur un PC Linux, et bumblebee-nvidia si c'est un PC portable avec couple Intel + NVidia
+dpkg --add-architecture i386
+apt update
+apt install steam bumblebee-nvidia
+-----------------------------------------------------------
+
+Description :
+
+  
+  - dbus : outil/bus de communication entre service logiciels - l'installation d'un bureau from scratch échouera s'il n'est pas installé d'abord !
+  - net-tools : ifconfig, netstat, etc
+  - lxde-core : celui qui fonctionne toujours
+  - lxpolkit : gestion de privilège administrateurs (pour synaptic, gnome-disk-utility, menu de redémarrage, etc)
+  - lxterminal : propre et fonctionnel
+  - lxrandr : gestion des tailles/résolution/disposition d'écran
+  - lxappearance : modification des icon thèmes et Window thèmes
+  - lightdm : répandu, fiable, simple/facile à configurer/personnaliser, et fonctionne avec tous les bureaux (KDE, Gnome, LXDE, etc)
+  - tightvncserver : création de bureaux virtuels fonctionnels et accessibles en vnc via "vncserver -geometry 1024x768 -rfbport 5900 -localhost"
+  - openssh-server : accès à distance en SSH : penser à personnaliser /etc/ssh/sshd_config pour "PermitRootLogin" si on veut administrer via WinSCP
+  - baobab : analyse présentée sous une forme extrêmement rapide à utiliser des occupations d'espace disque / présence de fichiers à sauvegarder par exemple
+  - brasero : Nero Burning Gnome
+  - gnome-commander : Total Gnommander 
+  - gnome-screenshot : Gestion Impr-Ecran, non temps réel avec petite GUI
+  - scrot : Gestion Impr-Ecran qui capture aussitôt dans un fichier
+  - gnome-system-monitor : Utilisation CPU, RAM, Réseau, et applications en cours
+  - gnome-disk-utility : présentation très efficace des disques/partitions présentes, de l'état physique des disques (SMART), et des points de montage. Création/Restauration d'images disque/partition.
+  - gparted : utilitaire graphique un peu rustre mais disposant de fonctionnalités précises pour resizer / crééer de nouvelles partitions
+  - iperf bwm-ng lm-sensors : test de Bande Passante, moniteur de bande passante, et commande "sensors" pour voir les températures et autres (dépend des cartes mères)
+  - pavucontrol : choisir/initialiser une sortie audio, les entrées, les volumes et leurs paramètres sans taper des commandes de merde
+  - eog : Image Viewer simple avec flèches et zoom molette
+  - gimp : Photoshop du Linuxien
+  - file-roller : 7zip pour linux, performant en toutes circonstances
+  - galculator : calculette simple
+  - evince : Adobe PDF Reader version Linux 
+  - gedit : Notepad++
+  - libreoffice 
+  - firefox-esr : Extended Support Release, version plus ancienne/stable de Firefox avec MàJ de sécurité. Pour avoir la dernière, on peut télécharger en "autonome" / "ready to work" sur mozilla.
+  - filezilla : presque aussi bien que WinSCP, n'empêche qu'il marche sous Linux, lui.
+  - vino: un x11vnc en beaucoup mieux
+  - dconf-editor: un éditeur de base de registre pour configurer vino (entre autre)
+  - vlc : plot de chantier
+  - virtualbox : on ne le présente plus
+  - boinc : Calcul CPU/GPU distribué pour la science
+  - synaptic : GUI facile et performante pour apt-get permettant de retrouver/supprimer les paquets existants et de faire des recherches précises
+  - sysstat : pour commande "iostat -m" (ou watch -n 1 iostat -m) permettant de suivre l'utilisation disque en temps réel.
+  - ntpdate : ntpdate ntp.u-psud.fr si l'heure a merdé
+  - build-essential : tout ce qui compile en aura besoin 
+  - mesa-utils : glxgears / glxinfo pour vérifier le fonctionnement d'un pilote graphique
+  - wicd : réseau Ethernet et WiFi par GUI fonctionelle / Tray icon
+  - blueman : bluetooth manager, devient fonctionnel si un module bluetooth présent sur le PC est fonctionnel avec des drivers OK
+  
+  - veracrypt : suite du projet True Crypt pour chiffrer des disques, des volumes, et des fichiers conteneurs de volumes (simple et marrant).
+  - GPUTest : benchmark GPU de haute performance pour Linux
+  - Prime95 : charge CPU à plein régime pour Linux
+
+  
+Mise en Service de l'ancien X11VNC tout pourri :
+cd /var
+mkdir vnc
+x11vnc -storepasswd 12345678 /var/vnc/x11vnc.pass
+
+Ligne de commande à placer à un endroit qui execute en root, une fois le serveur X Ouvert (idéal : dans le fichier config du Desktop Manager)
+x11vnc -forever -rfbport 5900 -auth guess -rfbauth /var/vnc/x11vnc.pass -o /var/vnc/x11vnc.log -bg -display :0
+nano LightDM (pour y placer la commande VNC à display-setup-script)
+
+
+
+------------------------------------
+Remplacement de X11VNC par Vino
+------------- 
+apt install vino dconf-editor
+
+Ouvrir dconf-editor (GUI) et chercher "remote-access" (doit être 
+
+/org/gnome/desktop/remote-access/
+ -> require-encryption : false sinon aucun VNC Viewer ne sait s'y connecter
+ -> prompt-enabled : false sinon impossible de se connecter, le fameux prompt n'apparaissant pas (hors Gnome)
+
+/org/gnome/desktop/input-sources/
+ -> sources : [('xkb', 'fr')]
+ 
+La configuration est alors notée dans /home/user/.config/dconf/user
+Pour mettre cette appli (ou un autre) en auto-start : /home/user/.config/autostart/placerIci.desktop
+Un raccourci prêt à l'emploi est disponible dans /usr/share/applications/vino-server.desktop
+
+------------------------------------------
+Definir un hashage de mot de passe via
+echo -n 'MotDePasseSouhaité' | base64
+(il faut conserver les guillemets apostrophes)
+ -> authentication-method : ['vnc']
+ -> vnc-password : le mot de passe en version "hashée"
+ -> redémarrer vino-server
+
+------------------------------------------
+
+Passage en bureau KDE / switching entre LXDE, KDE ou autre :
+ -> On peut conserver LightDM
+ -> apt-install plasma-desktop
+ 
+Remplacer l'application par défaut sous Debian :
+update-alternatives --config x-session-manager
+
+Cette commande marche pour un tas de choses (navigateur par défaut, etc).
+blueman n'est pas nécéssaire quand on installe KDE, car KDE embarque ses propres outils bluetooth.
+
+-------------------------------------------
+
+File-roller et autres explorateurs basés sur Gnome : pour voir les dossiers/fichiers cachés, utiliser dconf-editor
+
+Browse to org > gtk > settings > file-chooser > enable the "hidden file"
+The key from org > gnome > nautilus > preferences : show-hidden-files is ignored as it is deprecated.

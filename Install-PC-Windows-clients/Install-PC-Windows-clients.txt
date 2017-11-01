@@ -1,0 +1,58 @@
+Pour analyse du PC
+  - Speccy (au lieu de HD Tune)
+  - FurMark / GPU-Z / NVidia Inspector pour vérifier les pates thermiques des PC ayant du GPU
+  - Prime95 + Speccy pour vérifier les pates thermiques des CPU (PC Portable uniquement : sur un fixe ça sert assez peu)
+  - Memtest (l'original, pas la daube payante de passmark) : http://www.memtest.org/
+
+Logiciels communs
+  - 7Zip
+  - Adobe Reader
+  - Firefox / Chrome (disconnect et adblock)
+  - LibreOffice / Microsoft Office (attention, crack = interdit dans notre metier !)
+  - Adblock avec filtres au maximum (indispensable, désormais PUB/Spam = canal principal d'arrivée de tout virus dans un ordinateur - mails, crack/warez ensuite)
+  - Skype ? Déjà inclus dans W10
+  - VLC
+  - Visionneuse W7 standard sous W10
+  
+Logiciels intermédiaires :
+  - OpenVPN ?
+  - Flash Player ? (bientot dans l'oubli)
+  - Machine virtuelle Java ? (uniquement pour experts ou pour besoin genre sockettest, ipscan, iDRAC à distance...)
+  - Recuva
+  - Notepad++
+  - Gimp / Inkscape / Paint.NET
+  
+  - Teamviewer si necessaire (sinon Assistance W10, voire VNC server si VPN disponible)
+  
+Logiciels experts :
+  - Putty.exe / WinSCP 
+  - Iperf
+  - Filezilla client ? 
+  - VNC Viewer / VNC Server
+  - Wireshark
+  - Virtual Box
+  - Vera Crypt
+
+Logiciels pour les particuliers :
+  - Directx12 (pour PC Gamer)
+  - Drivers Imprimante - scanner et appareil photo (penser à prendre les références de ces différents accessoires)
+  - Winamp (lecteur MP3)
+
+  
+A penser à remettre en service une fois le PC prêt
+  - Logiciels métiers
+  - Boites mail (outlook, thunderbird)
+  - Accès réseaux (lecteurs réseaux, et VPN si besoin)
+  - Nom du PC
+  - Windows Updates après installation (cocher la case des mises à jour Microsoft globales)
+  - Mises en veille : attention en cas de PC serveurs
+  - Bouton Power -> Mise en veille -> mise en powe OFF ? Customisation si besoin
+  - Vérifier l'activation
+  - En cas de VNC Server, vérifier que le parefeu ne coupe pas une categorie de réseaux
+  - Recaser si besoin les fichiers tmp les téléchargements et autre fichiers temporaires dans le lecteur physique si présence de lecteur SSD
+  - Install imprimantes et autres trucs que les gens ne savent toujours pas faire en 2017
+
+  - (Désactivation des fonctions d'espionnage total W10, Cortana, icones etc)
+  - (Menu démarrer, vignettes, et bloatwares : gros ménage ?)
+  - (Paramètres > Personnalisation > Accueil : gros ménage ?)
+  

@@ -1,0 +1,13 @@
+Unattended-Upgrade::Origins-Pattern {
+        "o=Raspbian";
+        "o=Raspberry Pi Foundation";
+};
+
+Unattended-Upgrade::Package-Blacklist {
+};
+
+Unattended-Upgrade::Mail "updates-log@pixconfig.fr";
+
+Unattended-Upgrade::Remove-Unused-Dependencies "true";
+
+Unattended-Upgrade::Automatic-Reboot "true";

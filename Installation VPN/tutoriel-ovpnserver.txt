@@ -1,0 +1,66 @@
+apt install openvpn
+
+Placer /etc/openvpn/easy-rsa/
+Mettre le contenu en +x
+
+Editer "vars" : 
+  - Entrer toutes les informations pour ne pas qu'il les redemenade par la suite
+  - Editer la ligne KEY_CONFIG de cette façon : KEY_CONFIG=$EASY_RSA/openssl-1.0.0.cnf car depuis stretch l'ancienne écriture ne passe plus
+
+cd /etc/openvpn/easy-rsa/
+source ./vars
+./clean-all
+./build-ca
+./build-key-server server-key  - Challenge Password vide, [y] à la fin.
+./build-key-pass client-key - Choisir un PEM, Challenge Password vide, [y] à la fin.
+  - Pour ne pas avoir de mot de passe sur la clé : ./build-key client-key
+
+cd /etc/openvpn/easy-rsa/keys/
+openssl rsa -in client-key.key -des3 -out client-key.3des.key (mot de passe demandé : le PEM)
+  - Pour ne pas avoir de mot de passe sur la clé : copier simplement client-key en client-key.3des.key pour que le script à la fin fonctionne quand même
+
+cd /etc/openvpn/easy-rsa/
+./build-dh (parfois très long genre 2 à 20 minutes sur Pi)
+openvpn --genkey --secret keys/ta.key
+
+Déplacer "keys" à /etc/openvpn/keys/
+Placer et personnaliser /etc/openvpn/server.conf (adresse de l'interface d'accès au réseau local + adresse passerelle/DNS)
+	   
+nano /etc/sysctl.conf
+ -> décommenter cette ligne : net.ipv4.ip_forward=1
+
+sysctl -p
+
+Placer /etc/openvpn/allow-firewall.sh, le rendre +x
+
+
+Ajouter la ligne pre-up /etc/openvpn/allow-firewall.sh au bon endroit dans /etc/network/interfaces, par exemple on pourra avoir :
+auto eth0
+iface eth0 inet static
+       pre-up /etc/openvpn/allow-firewall.sh
+       address 192.168.1.4
+       netmask 255.255.255.0
+       gateway 192.168.1.1
+       dns-nameservers 192.168.1.1
+
+
+Placer Default.txt et MakeOpenVPN.sh dans /etc/openvpn/keys/
+Modifier Default.txt au besoin, sinon modifier plus tard le contenu du fichier .ovpn obtenu plus loin
+./MakeOpenVPN.sh
+nom de la clé : client-key
+
+   Ca créée un fichier .ovpn prêt à l'emploi pour les postes clients utilisant openvpn.
+   Pour être client openvpn sous Linux en tant que root : openvpn /adresse/de/la/cle.ovpn
+   Le fichier ".ovpn" pourra être renommé à souhait et l'adresse de connexion qui y est contenue pourra être modifiée (remplacée par un hostname également)
+   
+
+Supprimer le bazard dans le dossier easy-rsa
+On peut supprimer plein de fichiers intermediaires dans keys et ne garder que ceux là : 
+/etc/openvpn/keys/ca.crt
+/etc/openvpn/keys/server-key.crt
+/etc/openvpn/keys/server-key.key
+/etc/openvpn/keys/dh2048.pem
+/etc/openvpn/keys/ta.key
+Ne pas supprimer la clé ovpn avant de l'avoir récupérée ! Sinon il faut recommencer
+
+Réduire les permissions de /etc/openvpn/keys/ : r-x --- --- sur le dossier et r-- --- --- sur les fichiers.

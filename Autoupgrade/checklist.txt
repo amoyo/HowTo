@@ -1,0 +1,31 @@
+apt-get install mailutils ssmtp unattended-upgrades
+
+Placer et personnaliser /etc/ssmtp/ssmtp.conf
+Placer et personnaliser /etc/apt/apt.conf.d/50unattended-upgrades
+
+dpkg-reconfigure -plow unattended-upgrades
+
+--------------------------------------------------------------------
+Contenu de unattended-upgrades : dépend de la distribution et des ajouts dans sources.list
+
+#Pour avoir une liste dans lesquelles les sources sont nommées :
+apt update
+apt-cache policy
+
+#Les résultats se partagent par exemple en 2 origines : 
+        "o=Raspberry Pi Foundation";
+        "o=Raspbian";
+
+ou par exemple
+        "o=Raspberry Pi Foundation";
+        "o=Raspbian";
+        "o=Syncthing";
+
+#Sur un Debian "PC" ça se partage en 2 origines aussi : 
+        "o=Debian Backports";
+        "o=Debian";
+
+ou par exemple 
+        "o=Debian Backports";
+        "o=Debian";
+        "o=Syncthing";

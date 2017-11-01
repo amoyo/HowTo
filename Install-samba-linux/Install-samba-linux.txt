@@ -1,0 +1,17 @@
+apt-get install samba
+
+nano /etc/samba/smb.conf
+
+placer/adapter ceci tout à la fin :
+[NomQu'onVeut]
+        comment = Fichiers partagés
+        path = /home/user/Exemple
+        writable = yes
+        read only = no
+        browseable = yes
+        printable = no
+        valid user = user
+
+
+smbpasswd -a user
+/etc/init.d/samba restart

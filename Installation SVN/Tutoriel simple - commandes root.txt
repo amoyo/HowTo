@@ -1,0 +1,44 @@
+Installation d'un serveur SVN
+
+-------------------------------------------------------------------------------
+On fait ici abstraction de l'installation de Linux (pour Debian, ça se résume à Net Installer, Expert Install, et skip "Select and Install software")
+apt-get install openssh-server, nano /etc/ssh/sshd_config pour permit root login. lxde-core + lightdm pour ceux qui veulent un bureau, synaptic et lancez vous.
+
+Expert Install est appelé ainsi car ils pensaient que quand on dit Linux c'est compliqué, l'installeur devait tout choisir lui même sans informer ni poser de question
+Or les questions de bases sont interessantes et doivent IMPERATIVEMENT être comprises, et renseignées par vous !
+
+C'est le minimum nécéssaire pour être autonome ensuite, et l'installation minimum ne fait pas venir de problèmes (et si des problèmes ont lieu, vous savez où)
+-------------------------------------------------------------------------------
+
+Installation d'un serveur SVN :
+
+apt-get update
+apt-get upgrade
+
+apt-get install apache2
+apt-get install subversion
+apt-get install libapache2-svn
+
+
+Configuration :
+
+mkdir /var/svnrepos/
+chown -R www-data:www-data /var/svnrepos/
+chmod -R 750 /var/svnrepos/
+
+Pour le fichier de config, cf le fichier posé à côté.
+nano dav_svn.conf
+
+
+reboot
+
+
+PS : Création du fichier - à n'effectuer que s'il n'existe pas encore ! On ajoute le "-c" !
+htpasswd -c /etc/apache2/dav_svn.passwd <user>
+htpasswd /etc/apache2/dav_svn.passwd <user>
+-------------------------------------------------------------------------------
+cd /var/svnrepos/
+svnadmin create <nom_du_projet>
+chown -R www-data:www-data <nom_du_projet>
+
+Pour info : on peut sans problème les renommer.

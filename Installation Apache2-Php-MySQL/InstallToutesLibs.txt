@@ -1,0 +1,16 @@
+Debian Stretch : faire marcher MySQL de façon standard (avec PhpMyAdmin par exemple)
+
+La liste suivante convient à Wordpress, Prestashop, et PhpMyAdmin
+apt update && apt upgrade -y && apt install apache2 libapache2-mod-php php-zip php-mysql php-curl php-gd php-intl php-xml php-mbstring mysql-server -y && service apache2 restart
+
+
+apt install mysql-server
+mysql_secure_installation
+mysql -u root
+
+     mysql> USE mysql;
+     mysql> UPDATE user SET plugin='mysql_native_password' WHERE User='root';
+     mysql> FLUSH PRIVILEGES;
+     mysql> exit;
+
+service mysql restart

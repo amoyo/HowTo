@@ -1,0 +1,5 @@
+systemctl status dphys-swapfile 
+systemctl disable dphys-swapfile
+systemctl status dphys-swapfile 
+reboot
+systemctl status dphys-swapfile 
