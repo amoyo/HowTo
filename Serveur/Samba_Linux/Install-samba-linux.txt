@@ -1,8 +1,18 @@
+# Samba
+
+Partage de fichiers IP
+
+## Installation sous Linux
+
+Installer le paquet sur Debian
+
+```bash
 apt-get install samba
+```
 
-nano /etc/samba/smb.conf
+Editer le fichier `/etc/samba/smb.conf` afin de placer/adapter ceci tout à la fin :
 
-placer/adapter ceci tout à la fin :
+```
 [NomQu'onVeut]
         comment = Fichiers partagés
         path = /home/user/Exemple
@@ -11,7 +21,21 @@ placer/adapter ceci tout à la fin :
         browseable = yes
         printable = no
         valid user = user
+```
 
+Ajouter un utilisateur qui aura accés au partage. L'utilisateur doit déjà exister dans /etc/passwd (Utilisateur Linux)
 
-smbpasswd -a user
+```bash
+# Ajout de l'utilisateur dans le système
+useradd <user>
+# Ajout de l'utilisateur sans shell ni home directory
+useradd <user> -M -s /dev/null
+# Ajout à samba
+smbpasswd -a <user>
+```
+
+Redémarer le service
+
+```
 /etc/init.d/samba restart
+```
